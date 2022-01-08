@@ -53,6 +53,10 @@ def print_time(text=None, minutes=None):
 def push_button(message: str = None, coord: tuple = None, sleep: int = None):
     print_time(text=f"{message}")
 
+    # try 2 times
+    pyautogui.mouseDown(*coord)
+    pyautogui.mouseUp(*coord)
+    time.sleep(1)
     pyautogui.mouseDown(*coord)
     pyautogui.mouseUp(*coord)
 
@@ -127,7 +131,12 @@ def run():
             sleep_time = CONFIG['sleep_time']
             refresh_map_time = CONFIG['refresh_map_time']
             now = datetime.datetime.now()
-            if now >= (start_date + datetime.timedelta(minutes=refresh_map_time)):
+            if now >= (
+                    start_date + datetime.timedelta(minutes=refresh_map_time)):
                 print_time("Sleep until", minutes=sleep_time)
                 time.sleep(sleep_time * 60)
                 break
+
+
+if __name__ == '__main__':
+    run()
